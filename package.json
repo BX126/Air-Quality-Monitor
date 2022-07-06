@@ -1,0 +1,21 @@
+{
+  "name": "airquality",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "16.15.1",
+    "npm": "8.12.1"
+  },
+  "keywords": [],
+  "author": "bx",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "axios": "^0.27.2",
+    "cors": "^2.8.5"
+  }
+}
