@@ -29,11 +29,19 @@ function App() {
     return function cleanup() {
       clearInterval(timer);
     };
-  },[]);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => setLoading(true), 1000*60*10);
+    return function cleanup() {
+      clearInterval(timer);
+    };
+  }, []);
 
   useEffect(() => {
     const getData = async () => {
       try {
+        if(loading){
         const response = await axios.get(`/backend`);
         const response2 = await axios.get(`/city`);
         setInput(response.data[7]["sensors"]);
@@ -48,14 +56,21 @@ function App() {
             J: 0,
             C: 0,
           };
-          dataset.pm25I = parsedData[2][1]["value"] == null ? 30 : Number(parsedData[2][1]["value"]);
-          dataset.W = parsedData[0][1]["value"] == null ? 0 :parsedData[0][1]["value"];
-          dataset.S = parsedData[1][1]["value"] == null ? 0 :parsedData[1][1]["value"];
-          dataset.J = parsedData[4][1]["value"] == null ? 0 :parsedData[4][1]["value"];
-          dataset.C = parsedData[5][1]["value"] == null ? 0 :parsedData[5][1]["value"];
+          dataset.pm25I =
+            parsedData[2][1]["value"] == null
+              ? 30
+              : Number(parsedData[2][1]["value"]);
+          dataset.W =
+            parsedData[0][1]["value"] == null ? 0 : parsedData[0][1]["value"];
+          dataset.S =
+            parsedData[1][1]["value"] == null ? 0 : parsedData[1][1]["value"];
+          dataset.J =
+            parsedData[4][1]["value"] == null ? 0 : parsedData[4][1]["value"];
+          dataset.C =
+            parsedData[5][1]["value"] == null ? 0 : parsedData[5][1]["value"];
           dataset.pm25O = response2.data == null ? 0 : Number(response2.data);
           setData(dataset);
-
+        }
         }
       } catch (err) {
         setError(err.message);
@@ -64,6 +79,7 @@ function App() {
         setLoading(false);
       }
     };
+
     getData();
   });
 

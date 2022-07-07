@@ -3,7 +3,7 @@ const express = require("express"),
   app = express(),
   axios = require('axios'),
   cors = require("cors"),
-  port = process.env.PORT || 3001;
+  port = process.env.PORT || 3003;
 
 app.use(cors());
 app.use(express.static(path.resolve(__dirname, "../client/build")));
